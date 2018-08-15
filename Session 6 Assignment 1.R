@@ -1,9 +1,12 @@
 ##a.  Preprocess the passenger names to come up with a list of titles that represent families 
 getwd()
 setwd("D:/acadgilds/rlecture")
-library("readr")
+library(readr)
 library(ggplot2)
+library(dplyr)
 train= read_csv("train.csv", col_names = TRUE)
+test= read_csv("test.csv", col_names = TRUE)
+train = bind_rows(train,test)
 b1 = gsub("\\, .*","",train$Name, fixed=FALSE)
 b1 = as.character(b1)
 ##  represent using appropriate visualization graph
@@ -13,11 +16,10 @@ hist(family_size$freq, main = "Histogram of family size vs freq", xlab = "Family
 
 ##b. Represent the proportion of people survived from the family size using a graph. 
 Fsize <- train$SibSp + train$Parch + 1
-ggplot(train[1:891,], aes(x = Fsize, fill = factor(Survived))) +
+ggplot(full[1:891,], aes(x = Fsize, fill = factor(Survived))) +
   geom_bar(stat='count', position='dodge') +
   scale_x_continuous(breaks=c(1:11)) +
   labs(x = 'Family Size')
-
 ##c.  Impute the missing values in Age variable using Mice Library, create two different graphs showing Age distribution before and after imputation.
 library(mice)
 

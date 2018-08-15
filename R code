@@ -11,12 +11,12 @@ b1 = gsub("\\, .*","",train$Name, fixed=FALSE)
 b1 = as.character(b1)
 ##  represent using appropriate visualization graph
 library(plyr)
-family_size = count(b1)
-hist(family_size$freq, main = "Histogram of family size vs freq", xlab = "Family size")
+family_names = count(b1)
+hist(family_names$freq, main = "Histogram of family names vs freq", xlab = "Family names")
 
 ##b. Represent the proportion of people survived from the family size using a graph. 
 Fsize <- train$SibSp + train$Parch + 1
-ggplot(full[1:891,], aes(x = Fsize, fill = factor(Survived))) +
+ggplot(train[1:891,], aes(x = Fsize, fill = factor(Survived))) +
   geom_bar(stat='count', position='dodge') +
   scale_x_continuous(breaks=c(1:11)) +
   labs(x = 'Family Size')
